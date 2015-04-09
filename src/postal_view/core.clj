@@ -19,12 +19,13 @@
                      2)]))))
 
 (defn app [polygons]
-  (compojure/routes (compojure/GET "/" [code] (let [[x y] (polygon-middle-point (get polygons code))]
-                                                (-> (slurp "template.html")
-                                                    (string/replace "%kml-url%" (str "http://www.sirpakauppinen.fi:3000/kml/" code))
-                                                    (string/replace "%center-x%" x)
-                                                    (string/replace "%center-y%" y))))
-                    (compojure/GET "/kml/:code" [code]  (-> (slurp "template.kml")
-                                                            (string/replace "%polygon%" (get polygons code))))))
+  (compojure/routes (compojure/GET "/kml/:code" [code]  (-> (slurp "template.kml")
+                                                            (string/replace "%polygon%" (get polygons code))))
+                    (compojure/GET "/:code" [code] (let [[x y] (polygon-middle-point (get polygons code))]
+                                                     
+                                                     (-> (slurp "template.html")
+                                                         (string/replace "%kml-url%" #_"http://www.sirpakauppinen.fi/public/jakelualueet/cta.kml" (str "http://www.sirpakauppinen.fi:3000/kml/" code))
+                                                         (string/replace "%center-x%" "24.768333" #_(str (format "%.6f" (float x))))
+                                                         (string/replace "%center-y%" "60.269854" #_(str (format "%.6f" (float y)))))))))
 
 (def handler (app (data/load-polygons "Postinumerot_20150102.csv")))
