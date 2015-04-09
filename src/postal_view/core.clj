@@ -26,8 +26,8 @@
                                                      
                                                      (-> (slurp "template.html")
                                                          (string/replace "%kml-url%"
-                                                                         "http://www.sirpakauppinen.fi/public/jakelualueet/cta.kml"
-                                                                         #_(str "http://www.sirpakauppinen.fi:3000/kml/" code))
+                                                                         #_"http://www.sirpakauppinen.fi/public/jakelualueet/cta.kml"
+                                                                         (str "http://www.sirpakauppinen.fi:3000/kml/" code))
                                                          (string/replace "%center-x%" (str (format "%.6f" (float x))))
                                                          (string/replace "%center-y%" (str (format "%.6f" (float y)))))))))
 
