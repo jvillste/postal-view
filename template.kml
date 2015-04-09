@@ -12,7 +12,7 @@
     </Style>
 
     <Placemark>
-      <name>Blue Line</name>
+      <name>%code%</name>
       <styleUrl>#blueLine</styleUrl>
       %polygon%
     </Placemark>
